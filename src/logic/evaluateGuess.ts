@@ -4,16 +4,19 @@ export interface GuessResult {
 }
 
 export const evaluateGuess = (secret: string, guess: string): GuessResult => {
-  let bulls = 0;
-  let cows = 0;
+  const normalizedSecret = secret.toLowerCase().split('');
+  const normalizedGuess = guess.toLowerCase().split('');
 
-  for (let index = 0; index < secret.length; index += 1) {
-    if (secret[index] === guess[index]) {
-      bulls += 1;
-    } else if (secret.includes(guess[index])) {
-      cows += 1;
-    }
-  }
+  const bulls = normalizedGuess.reduce(
+    (count, digit, index) => count + Number(digit === normalizedSecret[index]),
+    0,
+  );
+
+  const cows = normalizedGuess.reduce(
+    (count, digit, index) =>
+      count + Number(digit !== normalizedSecret[index] && normalizedSecret.includes(digit)),
+    0,
+  );
 
   return { bulls, cows };
 };
