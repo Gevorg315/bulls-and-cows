@@ -1,4 +1,4 @@
-import { createDigitValidator } from './createDigitValidator';
+import { createDigitValidator } from './createDigitValidator.js';
 
 export const isValidGuess = (guess: string, length: number, base: number): boolean => {
   if (![2, 8, 10, 16].includes(base)) {
